@@ -1,5 +1,5 @@
 {
-  "name": "bibi-customelement",
+  "name": "e-book",
   "version": "0.0.0",
   "description": "Element to embed ebook into webpage",
   "license": "GPLv3",
@@ -14,6 +14,8 @@
   ],
   "dependencies": {
     "webcomponentsjs": "^0.5.1",
-    "bibi": "~0.997.7"
+    "bibi": "https://github.com/satorumurmur/bibi.git#v0.998",
+    "fontawesome": "~4.3.0",
+    "Fullscreen-API-Polyfill": "https://github.com/neovov/Fullscreen-API-Polyfill.git"
   }
 }

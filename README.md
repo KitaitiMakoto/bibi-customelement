@@ -1,6 +1,8 @@
-# &lt;bibi-customelement&gt;
+# &lt;e-book&gt;
 
-> Element to embed ebook into webpage
+Custom Element to embed ebook into webpage
+
+[BiB/i][] is used for EPUB format, object elements is used for PDF format for now.
 
 ## Demo
 
@@ -11,7 +13,7 @@
 Install the component using [Bower](http://bower.io/):
 
 ```sh
-$ bower install bibi-customelement --save
+$ bower install --save e-book
 ```
 
 Or [download as ZIP](https://github.com/KitaitiMakoto/bibi-customelement/archive/master.zip).
@@ -27,32 +29,75 @@ Or [download as ZIP](https://github.com/KitaitiMakoto/bibi-customelement/archive
 2. Import Custom Element:
 
     ```html
-    <link rel="import" href="bower_components/bibi-customelement/src/e-book.html">
+    <link rel="import" href="bower_components/e-book/src/e-book.html">
     ```
 
 3. Start using it!
 
     ```html
-    <e-book></e-book>
+    <e-book src="http://example.net/path/to/unpacked/book"></e-book>
+    ```
+
+    ```html
+    <e-book src="http://example.net/path/to/book.epub"></e-book>
+    ```
+
+    ```html
+    <e-book>
+      <source src="http://example.net/path/to/book.epub" type="application/epub+zip"></source>
+    </e-book>
+    ```
+
+    ```html
+    <e-book src="http://example.net/path/to/book.pdf"></e-book>
     ```
 
 ## Options
 
 Attribute     | Options     | Default      | Description
 ---           | ---         | ---          | ---
-`foo`         | *string*    | `bar`        | Lorem ipsum dolor.
+`src`         | *DOMString* | `""`         | Ebook URL. *LIIMTATION*: Currently can load books under app/bookshelf directory for EPUB format.
+`poster`      | *DOMString* | `""`         | Poster image URL.
+`autostart`   | *Boolean*   | `false`      | Ebook loaded automatically if `true`.
+`target`      | *DOMString* | `"_blank"`       | Target window name which opens when new window link is clicked.
 
 ## Methods
 
 Method        | Parameters   | Returns     | Description
 ---           | ---          | ---         | ---
-`unicorn()`   | None.        | Nothing.    | Magic stuff appears.
+`load()`      | None.        | `Promise`   | Load ebook. Returns a `Promise` with resource object which has `src` and `type` properties. Used after changing inner `source` element.
 
 ## Events
 
 Event         | Description
 ---           | ---
-`onsomething` | Triggers when something happens.
+`onload`      | Fired on iframe's onload(not when book loaded).
+
+## Content Model
+
+Requires `source` when it doesn't have `src` attribute.
+
+## Detail behaviors
+
+### Loading timing
+
+If `<e-book>` has `src` attribute, it loads ebook when creating.
+
+```javascript
+var eBook = document.createElement("e-book");
+eBook.src = "path/to/ebook.epub"; // => start loading ebook
+```
+
+If not, when it is attached to the DOM tree it searches `source` elements from child elements and then load ebook.
+
+```javascript
+var eBook = document.createElement("e-book");
+var source = document.createElement("source");
+source.src = "path/to/ebook.epub";
+source.type = "application/epub+zip";
+eBook.appendChild(source);
+document.body.appendChild(eBook); // => start loading ebook
+```
 
 ## Development
 
@@ -60,27 +105,27 @@ In order to run it locally you'll need to fetch some dependencies and a basic se
 
 * Install [Bower](http://bower.io/) & [Grunt](http://gruntjs.com/):
 
-    ```sh
-    $ [sudo] npm install -g bower grunt-cli
-    ```
+```sh
+$ [sudo] npm install -g bower grunt-cli
+```
 
 * Install local dependencies:
 
-    ```sh
-    $ bower install && npm install
-    ```
+```sh
+$ bower install && npm install
+```
 
 * To test your project, start the development server and open `http://localhost:8000`.
 
-    ```sh
-    $ grunt server
-    ```
+```sh
+$ grunt server
+```
 
 * To provide a live demo, send everything to `gh-pages` branch.
 
-    ```sh
-    $ grunt deploy
-    ```
+```sh
+$ grunt deploy
+```
 
 ## Contributing
 
@@ -92,8 +137,10 @@ In order to run it locally you'll need to fetch some dependencies and a basic se
 
 ## History
 
-For detailed changelog, check [Releases](https://github.com/KitaitiMakoto/bibi-customelement/releases).
+For detailed changelog, check [Releases](https://github.com/KitaitiMakoto/e-book/releases).
 
 ## License
 
 [GPLv3](http://www.gnu.org/licenses/gpl.html) or later
+
+[BiB/i]: https://github.com/satorumurmur/bibi

@@ -11,11 +11,11 @@ module.exports = function(grunt) {
         },
         'gh-pages': {
             options: {
-                clone: 'bower_components/bibi-customelement'
+                clone: 'bower_components/e-book'
             },
             src: [
                 'bower_components/**/*',
-                '!bower_components/bibi-customelement/**/*',
+                '!bower_components/e-book/**/*',
                 'demo/*', 'src/*', 'index.html'
             ]
         }

@@ -2,7 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>&lt;bibi-customelement&gt;</title>
+    <title>&lt;e-book&gt;</title>
+
+    <script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>
+    <script src="bower_components/Fullscreen-API-Polyfill/fullscreen-api-polyfill.js"></script>
 
     <!-- Importing Web Component's Polyfill -->
     <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
@@ -13,24 +16,34 @@
     <style>
       e-book {
         display: inline-block;
+        /* width: 40%; */
+        /* height: 80vh; */
       }
     </style>
 </head>
 <body>
 
     <!-- Using Custom Elements -->
-    <e-book src="bower_components/bibi/bib/i/index.html?book=smacss-ja"></e-book>
+    <e-book src="http://127.0.0.1:9393/app/bookshelf/smacss-ja#somefragment" poster="bookshelf/smacss-ja/OEBPS/img/cover.jpg" autostart></e-book>
 
-    <video src="http://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.ogv" controls></video>
+    <a href="bower_components/bibi/bib/i/index.html?book=smacss-ja" data-bibi="embed" data-bibi-style="width: 40%; height: 80vh;"></a><script src="bower_components/bibi/bib/i.js"></script>
+
+    <e-book src="http://127.0.0.1:9393/app/bookshelf/smacss-ja.epub" poster="bookshelf/smacss-ja/OEBPS/img/cover.jpg"></e-book>
+
+    <e-book poster="bookshelf/smacss-ja/OEBPS/img/cover.jpg">
+        <source src="http://127.0.0.1:9393/app/bookshelf/smacss-ja.epub"></source>
+    </e-book>
+
+    <e-book>
+        <source src="http://www.asahi-net.or.jp/~fj6k-hrks/aozora/hana.pdf" type="application/pdf"></source>
+    </e-book>
+
+    <e-book src="http://www.asahi-net.or.jp/~fj6k-hrks/aozora/hana.pdf"></e-book>
 
     <script>
       var eBook = document.querySelector("e-book");
-      eBook.addEventListener("canplaythrough", function(event) {
-        alert("ebook ready!");
-      });
-      var video = document.querySelector("video");
-      video.addEventListener("canplay", function(event) {
-        console.dir(event);
+      eBook.addEventListener("load", function(event) {
+        console.log(event);
       });
     </script>
 </body>
