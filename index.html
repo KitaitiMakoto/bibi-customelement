@@ -9,11 +9,29 @@
 
     <!-- Importing Custom Elements -->
     <link rel="import" href="src/e-book.html">
+
+    <style>
+      e-book {
+        display: inline-block;
+      }
+    </style>
 </head>
 <body>
 
     <!-- Using Custom Elements -->
-    <e-book></e-book>
+    <e-book src="bower_components/bibi/bib/i/index.html?book=smacss-ja"></e-book>
 
+    <video src="http://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.ogv" controls></video>
+
+    <script>
+      var eBook = document.querySelector("e-book");
+      eBook.addEventListener("canplaythrough", function(event) {
+        alert("ebook ready!");
+      });
+      var video = document.querySelector("video");
+      video.addEventListener("canplay", function(event) {
+        console.dir(event);
+      });
+    </script>
 </body>
 </html>
